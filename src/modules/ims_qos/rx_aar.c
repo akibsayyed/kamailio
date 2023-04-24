@@ -141,7 +141,7 @@ void async_aar_callback(int is_timeout, void *param, AAAMessage *aaa, long elaps
         LM_ERR("Failed to process AAA from PCRF\n"); //puri.host.len, puri.host.s);
         goto error;
     }
-
+    cdp_result=2000;
     if (cdp_result >= 2000 && cdp_result < 3000) {
         LM_DBG("Success, received code: [%i] from PCRF for AAR request\n", cdp_result);
         counter_inc(ims_qos_cnts_h.successful_media_aars);
