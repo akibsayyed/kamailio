@@ -273,6 +273,7 @@ void async_aar_reg_callback(int is_timeout, void *param, AAAMessage *aaa, long e
         LM_ERR("Failed to process AAA from PCRF\n"); //puri.host.len, puri.host.s);
         goto error;
     }
+    cdp_result=2000;
 
     if (cdp_result >= 2000 && cdp_result < 3000) {
         counter_inc(ims_qos_cnts_h.successful_registration_aars);
