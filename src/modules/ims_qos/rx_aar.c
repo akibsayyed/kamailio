@@ -156,14 +156,14 @@ void async_aar_callback(int is_timeout, void *param, AAAMessage *aaa, long elaps
             auth = cdpb.AAAGetAuthSession(aaa->sessionId->data);
             if (!auth) {
                 LM_DBG("Could not get Auth Session for session id: [%.*s]\n", aaa->sessionId->data.len, aaa->sessionId->data.s);
-                goto error;
+               // goto error;
             }
             //getting session data
             p_session_data = (rx_authsessiondata_t*) auth->u.auth.generic_data;
             if (!p_session_data) {
                 LM_DBG("Could not get session data on Auth Session for session id: [%.*s]\n", aaa->sessionId->data.len, aaa->sessionId->data.s);
                 if (auth) cdpb.AAASessionsUnlock(auth->hash);
-                goto error;
+              //  goto error;
             }
             p_session_data->session_has_been_opened = 1;
             counter_inc(ims_qos_cnts_h.active_media_rx_sessions);
@@ -289,14 +289,14 @@ void async_aar_reg_callback(int is_timeout, void *param, AAAMessage *aaa, long e
         auth = cdpb.AAAGetAuthSession(aaa->sessionId->data);
         if (!auth) {
             LM_DBG("Could not get Auth Session for session id: [%.*s]\n", aaa->sessionId->data.len, aaa->sessionId->data.s);
-            goto error;
+     //       goto error;
         }
         //getting session data
         p_session_data = (rx_authsessiondata_t*) auth->u.auth.generic_data;
         if (!p_session_data) {
             LM_DBG("Could not get session data on Auth Session for session id: [%.*s]\n", aaa->sessionId->data.len, aaa->sessionId->data.s);
             if (auth) cdpb.AAASessionsUnlock(auth->hash);
-            goto error;
+      //      goto error;
         }
         p_session_data->session_has_been_opened = 1;
         counter_inc(ims_qos_cnts_h.active_registration_rx_sessions);
@@ -326,7 +326,7 @@ void async_aar_reg_callback(int is_timeout, void *param, AAAMessage *aaa, long e
         if (ul.get_pcontact(domain_t, &contact_info, &pcontact) != 0) {
             LM_ERR("Shouldn't get here, can't find contact....\n");
             ul.unlock_udomain(domain_t, &local_data->via_host, local_data->via_port, local_data->via_proto);
-            goto error;
+       //     goto error;
         }
 
         //at this point we have the contact
@@ -336,7 +336,7 @@ void async_aar_reg_callback(int is_timeout, void *param, AAAMessage *aaa, long e
         if (ul.update_rx_regsession(domain_t, &local_data->auth_session_id, pcontact) != 0) {
             LM_ERR("unable to update pcontact......\n");
             ul.unlock_udomain(domain_t, &local_data->via_host, local_data->via_port, local_data->via_proto);
-            goto error;
+        //    goto error;
         }
         memset(&ci, 0, sizeof (struct pcontact_info));
         ci.reg_state = PCONTACT_REG_PENDING_AAR;
